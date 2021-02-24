@@ -1,14 +1,6 @@
 #!/bin/bash
 ## Author:SuperManito
-## Modified:2021-2-22
-
-## 一键更新脚本：
-function AutoScript() {
-  touch manual-update.sh
-  cat >manual-update.sh <<\EOF
-#!/bin/bash
-## 项目安装目录
-BASE=""
+## Modified:2021-2-24
 
 ## 执行更新命令
 bash git_pull.sh
@@ -29,12 +21,6 @@ if [ $? -eq 0 ];then
 fi
 sed -i '/^\s*$/d' run-all.sh
 ## 配置定时任务
-sed -i "s#/home/myid/jd#$BASE#g" $BASE/config/crontab.list
-EOF
-  echo -e '\033[32m 1. 一键更新脚本已下载至当前目录。 \033[0m'
-  echo -e '\033[32m 2. 请在此文件内容中定义您项目的安装目录。 \033[0m'
-  echo -e '\033[32m 3. 请将此文件移动到项目所在目录。 \033[0m'
-  echo -e '\033[32m 4. 执行此一键更新脚本后会自动生成一键执行所有活动脚本。 \033[0m'
-  echo -e '\033[32m 5. 如有疑问请提交至 Issues 进行反馈。 \033[0m'
-}
-AutoScript
+sed -i "s#/home/myid/jd/##g" config/crontab.list
+sed -i "s#jd.sh#jd#g" config/crontab.list
+sed -i "s/git_pull/manual-update/g" config/crontab.list
